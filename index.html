@@ -8,1086 +8,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        :root {
-            --green: #1B5E20;
-            --green-light: #2E7D32;
-            --green-bright: #43A047;
-            --green-pale: #E8F5E9;
-            --mustard: #F9A825;
-            --mustard-light: #FBC02D;
-            --mustard-dark: #F57F17;
-            --mustard-pale: #FFF8E1;
-            --dark: #0F172A;
-            --gray: #64748B;
-            --light-gray: #F1F5F9;
-            --white: #FFFFFF;
-        }
+    <link rel="stylesheet" href="styles.css">
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--white);
-            color: var(--dark);
-            overflow-x: hidden;
-        }
-
-        /* ===== NAVBAR ===== */
-        .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            padding: 0.8rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.3s ease;
-        }
-
-        .navbar.scrolled {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-weight: 800;
-            font-size: 1.5rem;
-            color: var(--green);
-            text-decoration: none;
-        }
-
-        .logo-img {
-            height: 42px;
-            width: auto;
-            filter: none;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--dark);
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: color 0.3s;
-            position: relative;
-        }
-
-        .nav-links a:hover {
-            color: var(--green);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -6px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--mustard);
-            transition: width 0.3s;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .nav-btns {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .btn {
-            padding: 0.65rem 1.5rem;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: none;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--green);
-            color: var(--green);
-        }
-
-        .btn-outline:hover {
-            background: var(--green);
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--green), var(--green-light));
-            color: white;
-            box-shadow: 0 4px 20px rgba(27, 94, 32, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(27, 94, 32, 0.4);
-        }
-
-        .btn-mustard {
-            background: linear-gradient(135deg, var(--mustard), var(--mustard-light));
-            color: var(--dark);
-            box-shadow: 0 4px 20px rgba(249, 168, 37, 0.3);
-        }
-
-        .btn-mustard:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(249, 168, 37, 0.4);
-        }
-
-        /* ===== HERO ===== */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 8rem 5% 4rem;
-            background: linear-gradient(135deg, var(--green-pale) 0%, #fff 50%, var(--mustard-pale) 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 800px;
-            height: 800px;
-            background: radial-gradient(circle, rgba(27, 94, 32, 0.06) 0%, transparent 70%);
-            border-radius: 50%;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            bottom: -30%;
-            left: -10%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(249, 168, 37, 0.08) 0%, transparent 70%);
-            border-radius: 50%;
-        }
-
-        .hero-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: white;
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--green);
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
-            margin-bottom: 1.5rem;
-        }
-
-        .hero-badge i {
-            color: var(--mustard);
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            color: var(--dark);
-        }
-
-        .hero h1 span {
-            background: linear-gradient(135deg, var(--green), var(--mustard));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero p {
-            font-size: 1.15rem;
-            color: var(--gray);
-            line-height: 1.7;
-            margin-bottom: 2rem;
-            max-width: 500px;
-        }
-
-        .hero-btns {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .hero-stats {
-            display: flex;
-            gap: 2.5rem;
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(0, 0, 0, 0.08);
-        }
-
-        .stat-item h3 {
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--green);
-        }
-
-        .stat-item p {
-            font-size: 0.85rem;
-            color: var(--gray);
-            margin: 0;
-        }
-
-        .hero-visual {
-            position: relative;
-        }
-
-        .dashboard-mockup {
-            background: white;
-            border-radius: 24px;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.12);
-            padding: 1.5rem;
-            transform: perspective(1000px) rotateY(-5deg) rotateX(5deg);
-            transition: transform 0.5s;
-        }
-
-        .dashboard-mockup:hover {
-            transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
-        }
-
-        .mockup-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .mockup-title {
-            font-weight: 700;
-            font-size: 1.1rem;
-            color: var(--dark);
-        }
-
-        .mockup-dots {
-            display: flex;
-            gap: 0.4rem;
-        }
-
-        .mockup-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-        }
-
-        .mockup-cards {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .mock-card {
-            padding: 1.2rem;
-            border-radius: 16px;
-            background: var(--light-gray);
-        }
-
-        .mock-card.green {
-            background: linear-gradient(135deg, var(--green), var(--green-light));
-            color: white;
-        }
-
-        .mock-card.mustard {
-            background: linear-gradient(135deg, var(--mustard), var(--mustard-light));
-            color: var(--dark);
-        }
-
-        .mock-card-label {
-            font-size: 0.75rem;
-            opacity: 0.8;
-            margin-bottom: 0.3rem;
-        }
-
-        .mock-card-value {
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-
-        .mock-table {
-            background: var(--light-gray);
-            border-radius: 12px;
-            overflow: hidden;
-        }
-
-        .mock-table-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 0.8rem 1rem;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            font-size: 0.85rem;
-        }
-
-        .mock-table-row:last-child {
-            border-bottom: none;
-        }
-
-        .mock-status {
-            padding: 0.2rem 0.6rem;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 600;
-        }
-
-        .mock-status.paid {
-            background: var(--green-pale);
-            color: var(--green);
-        }
-
-        .mock-status.pending {
-            background: var(--mustard-pale);
-            color: var(--mustard-dark);
-        }
-
-        .floating-card {
-            position: absolute;
-            background: white;
-            padding: 1rem 1.5rem;
-            border-radius: 16px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .floating-card.card1 {
-            top: -30px;
-            right: -20px;
-            animation-delay: 0s;
-        }
-
-        .floating-card.card2 {
-            bottom: 40px;
-            left: -40px;
-            animation-delay: 1.5s;
-        }
-
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-15px);
-            }
-        }
-
-        .floating-card-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 0.5rem;
-            font-size: 1.2rem;
-        }
-
-        .floating-card-icon.green {
-            background: var(--green-pale);
-            color: var(--green);
-        }
-
-        .floating-card-icon.mustard {
-            background: var(--mustard-pale);
-            color: var(--mustard-dark);
-        }
-
-        .floating-card-text {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--dark);
-        }
-
-        .floating-card-sub {
-            font-size: 0.7rem;
-            color: var(--gray);
-        }
-
-        /* ===== FEATURES ===== */
-        .features {
-            padding: 6rem 5%;
-            background: var(--white);
-        }
-
-        .section-header {
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto 4rem;
-        }
-
-        .section-tag {
-            display: inline-block;
-            background: var(--green-pale);
-            color: var(--green);
-            padding: 0.4rem 1rem;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .section-header h2 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            color: var(--dark);
-        }
-
-        .section-header p {
-            color: var(--gray);
-            font-size: 1.1rem;
-            line-height: 1.7;
-        }
-
-        .features-grid {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-        }
-
-        .feature-card {
-            background: white;
-            border-radius: 24px;
-            padding: 2.5rem;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            transition: all 0.4s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--green), var(--mustard));
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.4s;
-        }
-
-        .feature-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
-            border-color: transparent;
-        }
-
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .feature-icon.green-bg {
-            background: var(--green-pale);
-            color: var(--green);
-        }
-
-        .feature-icon.mustard-bg {
-            background: var(--mustard-pale);
-            color: var(--mustard-dark);
-        }
-
-        .feature-icon.gradient-bg {
-            background: linear-gradient(135deg, var(--green-pale), var(--mustard-pale));
-            color: var(--green);
-        }
-
-        .feature-card h3 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 0.8rem;
-            color: var(--dark);
-        }
-
-        .feature-card p {
-            color: var(--gray);
-            font-size: 0.95rem;
-            line-height: 1.7;
-        }
-
-        .feature-list {
-            list-style: none;
-            margin-top: 1.2rem;
-        }
-
-        .feature-list li {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.9rem;
-            color: var(--gray);
-            margin-bottom: 0.5rem;
-        }
-
-        .feature-list li i {
-            color: var(--green);
-            font-size: 0.8rem;
-        }
-
-        /* ===== HOW IT WORKS ===== */
-        .how-it-works {
-            padding: 6rem 5%;
-            background: linear-gradient(180deg, var(--white) 0%, var(--light-gray) 100%);
-        }
-
-        .steps-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 3rem;
-            position: relative;
-        }
-
-        .step-card {
-            text-align: center;
-            position: relative;
-        }
-
-        .step-number {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: 800;
-            margin: 0 auto 1.5rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .step-number.green {
-            background: linear-gradient(135deg, var(--green), var(--green-light));
-            color: white;
-            box-shadow: 0 8px 30px rgba(27, 94, 32, 0.3);
-        }
-
-        .step-number.mustard {
-            background: linear-gradient(135deg, var(--mustard), var(--mustard-light));
-            color: var(--dark);
-            box-shadow: 0 8px 30px rgba(249, 168, 37, 0.3);
-        }
-
-        .step-card h3 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 0.8rem;
-            color: var(--dark);
-        }
-
-        .step-card p {
-            color: var(--gray);
-            font-size: 0.95rem;
-            line-height: 1.7;
-        }
-
-        .step-connector {
-            position: absolute;
-            top: 35px;
-            left: 33%;
-            width: 34%;
-            height: 2px;
-            background: linear-gradient(90deg, var(--green), var(--mustard));
-            z-index: 1;
-        }
-
-        /* ===== PRICING ===== */
-        .pricing {
-            padding: 6rem 5%;
-            background: var(--white);
-        }
-
-        .pricing-grid {
-            max-width: 1100px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            align-items: start;
-        }
-
-        .pricing-card {
-            background: white;
-            border-radius: 24px;
-            padding: 2.5rem;
-            border: 2px solid var(--light-gray);
-            transition: all 0.4s;
-            position: relative;
-        }
-
-        .pricing-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
-        }
-
-        .pricing-card.popular {
-            border-color: var(--green);
-            transform: scale(1.05);
-            box-shadow: 0 20px 60px rgba(27, 94, 32, 0.1);
-        }
-
-        .pricing-card.popular:hover {
-            transform: scale(1.05) translateY(-8px);
-        }
-
-        .popular-badge {
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(135deg, var(--mustard), var(--mustard-light));
-            color: var(--dark);
-            padding: 0.4rem 1.2rem;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: 700;
-        }
-
-        .pricing-name {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: var(--dark);
-        }
-
-        .pricing-desc {
-            font-size: 0.9rem;
-            color: var(--gray);
-            margin-bottom: 1.5rem;
-        }
-
-        .pricing-price {
-            font-size: 3rem;
-            font-weight: 800;
-            color: var(--dark);
-            margin-bottom: 0.3rem;
-        }
-
-        .pricing-price span {
-            font-size: 1rem;
-            font-weight: 500;
-            color: var(--gray);
-        }
-
-        .pricing-features {
-            list-style: none;
-            margin: 2rem 0;
-        }
-
-        .pricing-features li {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.6rem 0;
-            font-size: 0.95rem;
-            color: var(--gray);
-            border-bottom: 1px solid var(--light-gray);
-        }
-
-        .pricing-features li:last-child {
-            border-bottom: none;
-        }
-
-        .pricing-features li i {
-            color: var(--green);
-        }
-
-        .pricing-features li i.fa-xmark {
-            color: var(--gray);
-            opacity: 0.5;
-        }
-
-        .pricing-btn {
-            width: 100%;
-            text-align: center;
-            padding: 1rem;
-        }
-
-        /* ===== TESTIMONIALS ===== */
-        .testimonials {
-            padding: 6rem 5%;
-            background: linear-gradient(135deg, var(--green-pale) 0%, var(--mustard-pale) 100%);
-        }
-
-        .testimonials-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-        }
-
-        .testimonial-card {
-            background: white;
-            border-radius: 24px;
-            padding: 2rem;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s;
-        }
-
-        .testimonial-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .testimonial-stars {
-            color: var(--mustard);
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-        }
-
-        .testimonial-text {
-            font-size: 1rem;
-            line-height: 1.7;
-            color: var(--dark);
-            margin-bottom: 1.5rem;
-            font-style: italic;
-        }
-
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .testimonial-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--green), var(--mustard));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 700;
-            font-size: 1.2rem;
-        }
-
-        .testimonial-info h4 {
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--dark);
-        }
-
-        .testimonial-info p {
-            font-size: 0.85rem;
-            color: var(--gray);
-        }
-
-        /* ===== CTA ===== */
-        .cta {
-            padding: 6rem 5%;
-            background: linear-gradient(135deg, var(--green), var(--green-light));
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(249, 168, 37, 0.15) 0%, transparent 70%);
-            border-radius: 50%;
-        }
-
-        .cta::after {
-            content: '';
-            position: absolute;
-            bottom: -50%;
-            left: -20%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-            border-radius: 50%;
-        }
-
-        .cta-content {
-            position: relative;
-            z-index: 1;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .cta h2 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: white;
-            margin-bottom: 1rem;
-        }
-
-        .cta p {
-            font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.85);
-            margin-bottom: 2rem;
-            line-height: 1.7;
-        }
-
-        .cta-btn {
-            background: linear-gradient(135deg, var(--mustard), var(--mustard-light));
-            color: var(--dark);
-            padding: 1rem 2.5rem;
-            font-size: 1.1rem;
-            font-weight: 700;
-            border-radius: 14px;
-            box-shadow: 0 10px 40px rgba(249, 168, 37, 0.3);
-        }
-
-        .cta-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 50px rgba(249, 168, 37, 0.4);
-        }
-
-        /* ===== FOOTER ===== */
-        .footer {
-            background: var(--dark);
-            color: white;
-            padding: 4rem 5% 2rem;
-        }
-
-        .footer-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-
-        .footer-brand .logo {
-            color: white;
-            margin-bottom: 1rem;
-        }
-
-        .footer-brand .logo-icon {
-            background: linear-gradient(135deg, var(--green), var(--mustard));
-        }
-
-        .footer-brand p {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.95rem;
-            line-height: 1.7;
-            max-width: 300px;
-        }
-
-        .footer-col h4 {
-            font-size: 1rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            color: white;
-        }
-
-        .footer-col ul {
-            list-style: none;
-        }
-
-        .footer-col ul li {
-            margin-bottom: 0.8rem;
-        }
-
-        .footer-col ul li a {
-            color: rgba(255, 255, 255, 0.6);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.3s;
-        }
-
-        .footer-col ul li a:hover {
-            color: var(--mustard);
-        }
-
-        .footer-bottom {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .footer-bottom p {
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 0.85rem;
-        }
-
-        .footer-social {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .footer-social a {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-
-        .footer-social a:hover {
-            background: var(--mustard);
-            color: var(--dark);
-            transform: translateY(-3px);
-        }
-
-        /* ===== MOBILE MENU ===== */
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--dark);
-            cursor: pointer;
-        }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 1024px) {
-            .hero-container {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .hero p {
-                margin: 0 auto 2rem;
-            }
-
-            .hero-btns {
-                justify-content: center;
-            }
-
-            .hero-stats {
-                justify-content: center;
-            }
-
-            .hero-visual {
-                order: -1;
-                max-width: 600px;
-                margin: 0 auto;
-            }
-
-            .steps-container {
-                grid-template-columns: 1fr;
-            }
-
-            .step-connector {
-                display: none;
-            }
-
-            .pricing-grid {
-                grid-template-columns: 1fr;
-                max-width: 400px;
-            }
-
-            .pricing-card.popular {
-                transform: scale(1);
-            }
-
-            .pricing-card.popular:hover {
-                transform: scale(1) translateY(-8px);
-            }
-
-            .testimonials-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        @media (max-width: 768px) {
-
-            .nav-links,
-            .nav-btns {
-                display: none;
-            }
-
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .section-header h2 {
-                font-size: 2rem;
-            }
-
-            .footer-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-bottom {
-                flex-direction: column;
-                gap: 1rem;
-                text-align: center;
-            }
-        }
-    </style>
 </head>
 
 <body>
@@ -1102,9 +25,9 @@
             </div>
         </a>
         <ul class="nav-links">
+            <li><a href="#why-roozbook">Why RoozBook</a></li>
             <li><a href="#features">Features</a></li>
-            <li><a href="#how-it-works">How It Works</a></li>
-            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#phase2">Phase 2</a></li>
             <li><a href="#testimonials">Testimonials</a></li>
         </ul>
         <div class="nav-btns">
@@ -1120,11 +43,11 @@
             <div class="hero-content">
                 <div class="hero-badge">
                     <i class="fa-solid fa-star"></i>
-                    Trusted by 10,000+ Businesses
+                    Built for businesses that move and lead the market
                 </div>
-                <h1>Manage Your <span>Credit & Inventory</span> Like Never Before</h1>
-                <p>RoozBook is the all-in-one SaaS platform that helps businesses track credits, manage inventory, and
-                    streamline operations — all from one powerful dashboard.</p>
+                <h1>Cloud-based business management for distributors</h1>
+                <p>Control customer credit, recoveries, payments, expenses, banking, inventory, and daily operations
+                    from one clear and reliable system.</p>
                 <div class="hero-btns">
                     <a href="#" class="btn btn-primary">Start Free Trial</a>
                     <a href="#" class="btn btn-mustard"><i class="fa-solid fa-play"></i> Watch Demo</a>
@@ -1192,78 +115,144 @@
         </div>
     </section>
 
-    <!-- FEATURES -->
-    <section class="features" id="features">
+    <!-- WHY ROOZBOOK -->
+    <section class="features" id="why-roozbook">
         <div class="section-header">
-            <div class="section-tag">Powerful Features</div>
-            <h2>Everything You Need to Run Your Business</h2>
-            <p>From credit tracking to inventory management, RoozBook gives you complete control over your business
-                operations.</p>
+            <div class="section-tag">Why RoozBook</div>
+            <h2>Trusted by distributors to recover cash, control credit, and close every day accurately.</h2>
+            <p>Recover payments faster, manage outstanding credit, reconcile daily operations, and keep your existing
+                DMS in place.</p>
         </div>
         <div class="features-grid">
             <div class="feature-card">
-                <div class="feature-icon green-bg"><i class="fa-solid fa-book"></i></div>
-                <h3>Credit Book Management</h3>
-                <p>Track all your customer credits, debits, and payments in one place. Never lose track of who owes you
-                    what.</p>
+                <div class="feature-icon green-bg"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+                <h3>Recover Payments Faster</h3>
+                <p>Prioritize overdue customers, track follow-ups, and keep the recovery team focused on the right dues.
+                </p>
                 <ul class="feature-list">
-                    <li><i class="fa-solid fa-check"></i> Customer ledger management</li>
-                    <li><i class="fa-solid fa-check"></i> Auto payment reminders</li>
+                    <li><i class="fa-solid fa-check"></i> Overdue alerts and follow-up history</li>
+                    <li><i class="fa-solid fa-check"></i> Promised payments tracking</li>
+                    <li><i class="fa-solid fa-check"></i> Team recovery performance</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon mustard-bg"><i class="fa-solid fa-credit-card"></i></div>
+                <h3>Control Outstanding Credit</h3>
+                <p>View each customer’s balance, payment history, aging, and credit exposure in one place.</p>
+                <ul class="feature-list">
+                    <li><i class="fa-solid fa-check"></i> Complete customer ledger</li>
                     <li><i class="fa-solid fa-check"></i> Credit limit alerts</li>
+                    <li><i class="fa-solid fa-check"></i> Invoice and payment history</li>
                 </ul>
             </div>
             <div class="feature-card">
-                <div class="feature-icon mustard-bg"><i class="fa-solid fa-boxes-stacked"></i></div>
-                <h3>Inventory Management</h3>
-                <p>Manage your entire stock with real-time updates. Know exactly what's in stock, what's running low,
-                    and what needs reordering.</p>
+                <div class="feature-icon gradient-bg"><i class="fa-solid fa-calendar-check"></i></div>
+                <h3>Close Every Day Accurately</h3>
+                <p>Reconcile sales, recoveries, cash, bank deposits, and expenses before the business day is closed.</p>
                 <ul class="feature-list">
-                    <li><i class="fa-solid fa-check"></i> Real-time stock tracking</li>
-                    <li><i class="fa-solid fa-check"></i> Low stock alerts</li>
-                    <li><i class="fa-solid fa-check"></i> Barcode scanning</li>
+                    <li><i class="fa-solid fa-check"></i> Guided day-end workflow</li>
+                    <li><i class="fa-solid fa-check"></i> Cash and bank reconciliation</li>
+                    <li><i class="fa-solid fa-check"></i> Daily variance alerts</li>
                 </ul>
             </div>
             <div class="feature-card">
-                <div class="feature-icon gradient-bg"><i class="fa-solid fa-chart-pie"></i></div>
-                <h3>Analytics & Reports</h3>
-                <p>Get deep insights into your business with beautiful charts and detailed reports. Make data-driven
-                    decisions.</p>
+                <div class="feature-icon green-bg"><i class="fa-solid fa-file-import"></i></div>
+                <h3>Work With Your Existing DMS</h3>
+                <p>Import customers, invoices, and recoveries without replacing your current distribution or invoicing
+                    software.</p>
                 <ul class="feature-list">
-                    <li><i class="fa-solid fa-check"></i> Sales analytics</li>
-                    <li><i class="fa-solid fa-check"></i> Credit aging reports</li>
-                    <li><i class="fa-solid fa-check"></i> Export to PDF/Excel</li>
+                    <li><i class="fa-solid fa-check"></i> Bulk import from Excel or DMS</li>
+                    <li><i class="fa-solid fa-check"></i> Duplicate detection</li>
+                    <li><i class="fa-solid fa-check"></i> Data validation checks</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHAT MAKES ROOZBOOK DIFFERENT -->
+    <section class="how-it-works" id="difference">
+        <div class="section-header">
+            <div class="section-tag">What Makes RoozBook Different</div>
+            <h2>Built for distributors and their cash-flow challenges.</h2>
+            <p>RoozBook is designed around customer credit, recoveries, route teams, bank deposits, expenses, and daily
+                closing—not generic bookkeeping alone.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon green-bg"><i class="fa-solid fa-warehouse"></i></div>
+                <h3>Built for Distributors</h3>
+                <p>Designed around credit control, recoveries, route staff, bank deposits, and daily closing.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon mustard-bg"><i class="fa-solid fa-code-compare"></i></div>
+                <h3>Works With Your DMS</h3>
+                <p>Receive data from existing invoicing or distribution systems without replacing the tools you already
+                    use.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon gradient-bg"><i class="fa-solid fa-chart-line-up-trend"></i></div>
+                <h3>Focused on Recovery & Cash Flow</h3>
+                <p>Aging alerts, follow-up tracking, invoice settlement, and day-end reconciliation that turn
+                    outstanding balances into collected cash.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon green-bg"><i class="fa-solid fa-earth-asia"></i></div>
+                <h3>Localized for Everyday Business</h3>
+                <p>Built for local business practices with PKR-based reporting, familiar terminology, and future
+                    Urdu-friendly workflows.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features" id="features">
+        <div class="section-header">
+            <div class="section-tag">Phase 1</div>
+            <h2>Core features for distributors and field teams.</h2>
+            <p>Designed around customer credit, recovery, cash flow, inventory, and daily operational control.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon green-bg"><i class="fa-solid fa-shield"></i></div>
+                <h3>Control Your Credit</h3>
+                <p>Track every customer balance, aging bucket, and transaction in one running ledger.</p>
+                <ul class="feature-list">
+                    <li><i class="fa-solid fa-check"></i> Customer Credit & Ledger</li>
+                    <li><i class="fa-solid fa-check"></i> Smart Recovery & Aging</li>
+                    <li><i class="fa-solid fa-check"></i> Payments & Invoice Settlement</li>
                 </ul>
             </div>
             <div class="feature-card">
-                <div class="feature-icon green-bg"><i class="fa-solid fa-users"></i></div>
-                <h3>Multi-User Access</h3>
-                <p>Give your team access with role-based permissions. Everyone sees what they need, nothing more.</p>
+                <div class="feature-icon mustard-bg"><i class="fa-solid fa-gear"></i></div>
+                <h3>Run Daily Operations</h3>
+                <p>Reconcile the day and keep customer, cash, and expenses aligned for every closing.</p>
                 <ul class="feature-list">
-                    <li><i class="fa-solid fa-check"></i> Role-based permissions</li>
-                    <li><i class="fa-solid fa-check"></i> Activity logs</li>
-                    <li><i class="fa-solid fa-check"></i> Staff management</li>
+                    <li><i class="fa-solid fa-check"></i> Day-End Closing</li>
+                    <li><i class="fa-solid fa-check"></i> DMS, Invoice & Data Import</li>
+                    <li><i class="fa-solid fa-check"></i> Expense, Banking & Cash Management</li>
                 </ul>
             </div>
             <div class="feature-card">
-                <div class="feature-icon mustard-bg"><i class="fa-solid fa-mobile-screen"></i></div>
-                <h3>Mobile App</h3>
-                <p>Access your business data on the go. Our mobile app keeps you connected to your business anywhere,
-                    anytime.</p>
+                <div class="feature-icon gradient-bg"><i class="fa-solid fa-truck-fast"></i></div>
+                <h3>Manage Your Distribution</h3>
+                <p>Keep stock, purchases, suppliers and field teams working together in one system.</p>
                 <ul class="feature-list">
-                    <li><i class="fa-solid fa-check"></i> iOS & Android apps</li>
-                    <li><i class="fa-solid fa-check"></i> Offline mode</li>
-                    <li><i class="fa-solid fa-check"></i> Push notifications</li>
+                    <li><i class="fa-solid fa-check"></i> Inventory Management</li>
+                    <li><i class="fa-solid fa-check"></i> Purchase & Supplier Management</li>
+                    <li><i class="fa-solid fa-check"></i> Field Staff & Route Management</li>
+                    <li><i class="fa-solid fa-check"></i> Mobile App</li>
                 </ul>
             </div>
             <div class="feature-card">
-                <div class="feature-icon gradient-bg"><i class="fa-solid fa-shield-halved"></i></div>
-                <h3>Bank-Grade Security</h3>
-                <p>Your data is protected with enterprise-level encryption and security protocols. Sleep peacefully
-                    knowing your data is safe.</p>
+                <div class="feature-icon green-bg"><i class="fa-solid fa-chart-line"></i></div>
+                <h3>Grow With Confidence</h3>
+                <p>Monitor the health of your business with dashboard, reports, communication, team controls and
+                    security.</p>
                 <ul class="feature-list">
-                    <li><i class="fa-solid fa-check"></i> 256-bit encryption</li>
-                    <li><i class="fa-solid fa-check"></i> Daily backups</li>
-                    <li><i class="fa-solid fa-check"></i> Two-factor auth</li>
+                    <li><i class="fa-solid fa-check"></i> Live Business Dashboard</li>
+                    <li><i class="fa-solid fa-check"></i> Reports & Business Insights</li>
+                    <li><i class="fa-solid fa-check"></i> WhatsApp and Email Communications</li>
+                    <li><i class="fa-solid fa-check"></i> Team & Role Management + Security</li>
                 </ul>
             </div>
         </div>
@@ -1293,6 +282,63 @@
                 <div class="step-number green">3</div>
                 <h3>Start Managing</h3>
                 <p>Use the powerful dashboard to track credits, manage inventory, and grow your business.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PHASE 2 -->
+    <section class="how-it-works" id="phase2">
+        <div class="section-header">
+            <div class="section-tag">Phase 2</div>
+            <h2>Planned Enhancements — Coming Soon</h2>
+            <p>These capabilities are in development and will expand RoozBook with multi-branch, banking, financial,
+                compliance, and portal features.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon mustard-bg"><i class="fa-solid fa-building-columns"></i></div>
+                <h3>Multi-Branch & Multi-Warehouse</h3>
+                <ul class="feature-list">
+                    <li><i class="fa-solid fa-check"></i> Branch-wise stock, cash and accounts</li>
+                    <li><i class="fa-solid fa-check"></i> Stock transfers between locations</li>
+                    <li><i class="fa-solid fa-check"></i> Consolidated head-office reporting</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon green-bg"><i class="fa-solid fa-money-check-dollar"></i></div>
+                <h3>Advanced Banking & Cheque Management</h3>
+                <ul class="feature-list">
+                    <li><i class="fa-solid fa-check"></i> Post-dated cheque tracking</li>
+                    <li><i class="fa-solid fa-check"></i> Cheque status management</li>
+                    <li><i class="fa-solid fa-check"></i> Advanced bank reconciliation</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon gradient-bg"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                <h3>Profitability & Profit and Loss</h3>
+                <ul class="feature-list">
+                    <li><i class="fa-solid fa-check"></i> Automatic profit-and-loss statements</li>
+                    <li><i class="fa-solid fa-check"></i> Product, customer, and route profitability</li>
+                    <li><i class="fa-solid fa-check"></i> Period-over-period performance comparison</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon green-bg"><i class="fa-solid fa-file-contract"></i></div>
+                <h3>Financial Management</h3>
+                <ul class="feature-list">
+                    <li><i class="fa-solid fa-check"></i> Chart of accounts and general ledger</li>
+                    <li><i class="fa-solid fa-check"></i> Double-entry accounting and trial balance</li>
+                    <li><i class="fa-solid fa-check"></i> Fiscal-year closing, budgeting and tax reporting</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon mustard-bg"><i class="fa-solid fa-file-invoice"></i></div>
+                <h3>Tax, Compliance & Customer Portal</h3>
+                <ul class="feature-list">
+                    <li><i class="fa-solid fa-check"></i> Sales tax and GST calculations</li>
+                    <li><i class="fa-solid fa-check"></i> Accountant-friendly exports</li>
+                    <li><i class="fa-solid fa-check"></i> Customer self-service portal</li>
+                </ul>
             </div>
         </div>
     </section>
