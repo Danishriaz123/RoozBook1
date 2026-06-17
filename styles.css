@@ -723,7 +723,7 @@ body {
 }
 
 .pricing-name {
-    font-size: 1.2rem;
+    font-size: 2rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
     color: var(--dark);
@@ -736,7 +736,7 @@ body {
 }
 
 .pricing-price {
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 800;
     color: var(--dark);
     margin-bottom: 0.3rem;
@@ -802,7 +802,7 @@ body {
     font-weight: 800;
     padding: 1.25rem 1.5rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     gap: 1rem;
     background: rgba(255, 255, 255, 0.8);
@@ -816,6 +816,8 @@ body {
     display: flex;
     flex-direction: column;
     gap: 0.35rem;
+    align-items: center;
+    text-align: center;
 }
 
 .pricing-summary-label small {
